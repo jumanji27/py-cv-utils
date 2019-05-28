@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-devel-ubuntu18.04
+FROM jjanzic/docker-python3-opencv:opencv-4.1.0
 
 COPY ./requirements.txt /root/py-cv-utils/requirements.txt
 RUN pip3 install -r /root/py-cv-utils/requirements.txt
