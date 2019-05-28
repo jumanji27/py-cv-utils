@@ -1,0 +1,9 @@
+.vscode
+*.egg*
+*.pyc
+build
+dist
+env
+old
+.DS_Store
+.idea/

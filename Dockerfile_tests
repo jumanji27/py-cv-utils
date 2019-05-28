@@ -1,0 +1,9 @@
+FROM nvidia/cuda:10.0-devel-ubuntu18.04
+
+COPY ./requirements.txt /root/py-cv-utils/requirements.txt
+RUN pip3 install -r /root/py-cv-utils/requirements.txt
+
+COPY . /root/py-cv-utils
+WORKDIR /root/py-cv-utils
+
+ENTRYPOINT ["python3", "-m", "unittest", "discover"]
