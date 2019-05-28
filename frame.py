@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from datetime import datetime
+import logging
 
 logger = logging.getLogger('frame')
 
