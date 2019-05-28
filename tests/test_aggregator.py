@@ -2,7 +2,7 @@ import os
 import unittest
 from random import randint
 
-from misc.aggregator import Aggregator
+from aggregator import Aggregator
 
 
 class TestMLQueue(unittest.TestCase):

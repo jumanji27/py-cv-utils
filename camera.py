@@ -10,7 +10,7 @@ import numpy as np
 
 from .frame import Frame  # noqa
 
-logger = logging.getLogger('pyutils.misc.camera')
+logger = logging.getLogger('camera')
 
 
 # Camera to read np frames from RTSP streams

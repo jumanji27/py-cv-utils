@@ -4,7 +4,7 @@ import queue
 import logging
 import sys
 
-from misc.ml_queue import MLQueue
+from ml_queue import MLQueue
 
 
 class TestMLQueue(unittest.TestCase):

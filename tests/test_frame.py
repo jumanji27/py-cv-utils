@@ -6,7 +6,7 @@ import datetime
 import pickle
 from time import sleep
 
-from misc.frame import Frame
+from frame import Frame
 
 
 class FrameTest(unittest.TestCase):

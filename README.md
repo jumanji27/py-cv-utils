@@ -3,4 +3,4 @@
 ### tests:
 
     docker build -f Dockerfile_tests -t test-pyutils .
-    docker run --rm -it test-pyutils misc/tests
+    docker run --rm -it test-pyutils tests
