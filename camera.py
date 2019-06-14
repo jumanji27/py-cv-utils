@@ -9,13 +9,10 @@ import time
 import datetime
 
 import numpy as np
-from prometheus_client import Counter, Histogram
 
 from .frame import Frame  # noqa
 
-logger = logging.getLogger('pyutils.misc.camera')
-camera_restarts = Counter('camera_restarts', 'Camera restarts counter')
-camera_read_image = Histogram('camera_read_image', 'Camera read image')
+logger = logging.getLogger('camera')
 
 
 class Camera():
@@ -25,7 +22,6 @@ class Camera():
         self._interval = interval
         self.frame = None
 
-    @camera_read_image.time()
     def _read(self, path, queue):
         try:
             with io.open(path, 'rb') as stream:
@@ -34,8 +30,9 @@ class Camera():
             logger.info(f'{self._name} can\'t read image, skipped')
             sleep(self._interval)
             return
-        self.frame = Frame(image)
-        if not self.frame.is_corrupted():
+        frame = Frame(image)
+        if not frame.is_corrupted():
+            self.frame = frame
             queue.put(self.frame)
         sleep(self._interval)
 
@@ -65,6 +62,8 @@ class Camera():
         while self._process.poll() is None:
             self._read(image_path, kwargs['queue'])
 
+        # Next code works if process of reading images fails and while loop is interrupted
+        self.frame = None
         interrupted_time = time.time()
         working_time = str(
             datetime.timedelta(
@@ -97,5 +96,4 @@ class Camera():
     def restart(self, **kwargs):
         logger.info(f'{self._name} camera is going to restart, let\'s pray')
         self.stop()
-        camera_restarts.inc()
         self.start(**kwargs)
