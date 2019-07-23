@@ -2,6 +2,7 @@ import time
 
 
 class Aggregator:
+    # Aggregate events from ML
     def __init__(self, state_threshold, time_gap=None, aggregator_type='frame_counter'):
         self._type = aggregator_type
         self._state_threshold = state_threshold
