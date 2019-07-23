@@ -4,8 +4,8 @@ import logging
 logger = logging.getLogger('ml-queue')
 
 
-# Queue is a way to communicate with ML
 class MLQueue:
+    # Queue is a way to communicate with ML
     def __init__(self, queue_id, config):
         self._id = queue_id
         self._max_size = config['max_size']

@@ -1,19 +1,16 @@
 import cv2
 import numpy as np
-from datetime import datetime
-import logging
-
-logger = logging.getLogger('frame')
+import time
+import datetime
 
 
-# Frame is class for convenient work with bin/numpy images in RGB/BGR format and convertion either
 class Frame:
     """
+    Frame is class for convenient work with bin/numpy images in RGB/BGR format and convertion either
     :param image: bin or numpyarray image
     """
     def __init__(self, image, BGR=False, single_channel=False):
-        self._timestamp = datetime.utcnow()
-
+        self._timestamp = time.time()
         if isinstance(image, bytes):
             try:
                 self._np_image, self._np_image_bgr = self._image_to_np_array(image, BGR)
@@ -42,7 +39,9 @@ class Frame:
             img_rgb = img_bgr[:, :, ::-1]
         return img_rgb, img_bgr
 
-    def get_timestamp(self):
+    def get_time(self, iso=False):
+        if iso:
+            return datetime.datetime.utcfromtimestamp(self._timestamp).isoformat() + 'Z'
         return self._timestamp
 
     def is_corrupted(self):

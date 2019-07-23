@@ -1,10 +1,6 @@
 import time
-import logging
-
-logger = logging.getLogger('aggregator')
 
 
-# Aggregate events from ML
 class Aggregator:
     def __init__(self, state_threshold, time_gap=None, aggregator_type='frame_counter'):
         self._type = aggregator_type
@@ -17,7 +13,7 @@ class Aggregator:
         if len(self) == self._state_threshold:
             self.state.pop(0)
         if self._type == 'time_gap':
-            item['_timestamp'] = time.time()
+            item['timestamp'] = time.time()
         self.state.append(item)
 
     def _frame_counter_check(self, field_to_check, limit):
@@ -47,7 +43,7 @@ class Aggregator:
         batch = self.state[-limit:]
         batch_len = len(batch)
         if batch_len and batch_len == limit \
-                and time.time() - batch[0]['_timestamp'] <= self._time_gap:
+                and time.time() - batch[0]['timestamp'] <= self._time_gap:
             return self._frame_counter_check(field_to_check, limit)
 
     def check(self, field_to_check=None, limit=None):
