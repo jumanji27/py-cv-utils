@@ -45,6 +45,7 @@ class Camera():
             'ffmpeg',
             '-y',
             '-rtsp_transport', 'tcp',
+            '-stimeout', '5000000',
             '-i', self._address,
             '-loglevel', kwargs['log_level'],
             '-f', kwargs['format'],
@@ -52,6 +53,7 @@ class Camera():
             '-s', f'{width}x{height}',
             '-vf', f'fps=fps={fps}',
             '-threads', '1',
+            '-vsync', 'vfr',
             '-updatefirst', '1',
             image_path
         ], preexec_fn=os.setsid)
